@@ -1,6 +1,11 @@
+@import "tailwindcss/tailwind.css";
+@import "daisyui/dist/full.css";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 /* index.css */
-@import "tailwindcss/tailwind.css";
-@import "daisyui/dist/full.css";
+
+
+

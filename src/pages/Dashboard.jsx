@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import Clock from "../components/Clock";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -45,10 +46,42 @@ const Dashboard = () => {
         } transition-transform duration-300 ease-in-out`}
       >
         {/* Sidebar content */}
-        <div className="p-4">
-          <h2 className="text-xl font-bold">Sidebar Menu</h2>
+        <div className="p-4 bg-blue-900">
+          <div classname="flex">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar ml-[160px] p-2"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a onClick={handleLogout}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <h2 className="text-xl font-bold text-base-100">Sidebar Menu</h2>
           <ul className="mt-4">
-            <div>
+            <div className="text-base-100">
               <span className="text-gray-400 text-sm ">
                 Employee Records Management <br />
               </span>
@@ -89,7 +122,9 @@ const Dashboard = () => {
               <div>
                 <hr className="border-gray-300" />
               </div>
-              <span className="text-gray-400 text-sm ">HR Compliance <br /></span>
+              <span className="text-gray-400 text-sm ">
+                HR Compliance <br />
+              </span>
               {/*Components*/}
               <span className=" text-base">
                 Component 1 <br />
@@ -130,7 +165,7 @@ const Dashboard = () => {
           isSidebarOpen ? "ml-64" : "ml-0"
         } transition-all duration-300`}
       >
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-500 shadow-md ">
           <div className="flex-none">
             <button
               className="btn btn-square btn-ghost"
@@ -152,46 +187,18 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">Dashboard</a>
+            <Clock />
           </div>
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
-              </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a onClick={handleLogout}>Logout</a>
-              </li>
-            </ul>
-          </div>
+          
         </div>
 
-        {/* Main content goes here */}
-        <div className="p-4">
-          {/* Replace with your main content */}
-          <h1>Welcome to the Dashboard</h1>
+        {/*MAIN CONTENT TITLE */}
+        <div>
+          <h1 className="font-bold text-3xl p-4">Announcement</h1>
         </div>
+
+        {/* MAIN CONTENT */}
+        <div className="p-4"></div>
       </div>
     </div>
   );

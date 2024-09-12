@@ -20,17 +20,51 @@ mongoose.connect('mongodb://localhost/mydatabase', {
 
 // Signup route
 app.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, middleName, username, birthday, gender, email, password } = req.body;
+
+  if (!firstName || !lastName || !username || !birthday || !gender || !email || !password) {
+    return res.status(400).send('All fields are required');
+  }
 
   try {
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).send('Invalid email format');
+    }
+
+    // Check for existing user
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).send('User already exists');
+    }
+
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword });
+
+    // Create a new user
+    const newUser = new User({
+      firstName,
+      lastName,
+      middleName,
+      username,
+      birthday,
+      gender,
+      email,
+      password: hashedPassword
+    });
+
+    // Save the user to the database
     await newUser.save();
-    res.status(201).send('User registered');
+    res.status(201).send('User registered successfully');
   } catch (err) {
+    console.error('Error registering user:', err);
     res.status(500).send('Error registering user');
   }
 });
+
+
+
 
 // Login route
 app.post('/login', async (req, res) => {
