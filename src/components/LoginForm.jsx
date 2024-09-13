@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Modal from './Modal';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,7 +18,12 @@ const LoginForm = () => {
       navigate('/dashboard');
     } catch (err) {
       setError(err.response ? err.response.data.message : 'Server error');
+      setModalOpen(true); 
     }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -46,9 +53,6 @@ const LoginForm = () => {
               required
             />
           </div>
-          {error && (
-            <div className="text-sm text-red-500 mt-2">{error}</div>
-          )}
           <button
             type="submit"
             className="w-full py-2 px-4 bg-blue-500 text-white font-medium rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -66,6 +70,9 @@ const LoginForm = () => {
           </div>
         </form>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={closeModal} message={error} />
     </div>
   );
 };

@@ -20,9 +20,9 @@ mongoose.connect('mongodb://localhost/mydatabase', {
 
 // Signup route
 app.post('/signup', async (req, res) => {
-  const { firstName, lastName, middleName, username, birthday, gender, email, password } = req.body;
+  const { firstName, lastName, middleName, birthday, gender, email, password } = req.body;
 
-  if (!firstName || !lastName || !username || !birthday || !gender || !email || !password) {
+  if (!firstName || !lastName || !birthday || !gender || !email || !password) {
     return res.status(400).send('All fields are required');
   }
 
@@ -47,7 +47,6 @@ app.post('/signup', async (req, res) => {
       firstName,
       lastName,
       middleName,
-      username,
       birthday,
       gender,
       email,
