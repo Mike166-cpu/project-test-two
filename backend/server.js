@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User');
+const Employee = require('./models/employee'); 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -17,6 +18,16 @@ mongoose.connect('mongodb://localhost/mydatabase', {
   useUnifiedTopology: true,
 }).then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
+
+// Fetch employee attendance data
+app.get('/api/employees', async (req, res) => {
+  try {
+    const employees = await Employee.find({});
+    res.json(employees);
+  } catch (err) {
+    res.status(500).send('Error fetching employee data');
+  }
+});
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -61,9 +72,6 @@ app.post('/signup', async (req, res) => {
     res.status(500).send('Error registering user');
   }
 });
-
-
-
 
 // Login route
 app.post('/login', async (req, res) => {
